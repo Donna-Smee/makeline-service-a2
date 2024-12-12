@@ -23,7 +23,7 @@ func getOrdersFromQueue() ([]Order, error) {
 
 	// Get queue name from environment variable
 	orderQueueName := os.Getenv("ORDER_QUEUE_NAME")
-	console.log("Donna order queue name: " + orderQueueName);
+	fmt.Println("Donna order queue name: " + orderQueueName);
 	if orderQueueName == "" {
 		log.Printf("ORDER_QUEUE_NAME is not set")
 		return nil, errors.New("ORDER_QUEUE_URI is not set")
@@ -35,7 +35,7 @@ func getOrdersFromQueue() ([]Order, error) {
 		useWorkloadIdentityAuth = "false"
 	}
 
-	console.log("Donna: workload identity: " + useWorkloadIdentityAuth);
+	fmt.Println("Donna: workload identity: " + useWorkloadIdentityAuth);
 
 
 	orderQueueHostName := os.Getenv("AZURE_SERVICEBUS_FULLYQUALIFIEDNAMESPACE")
@@ -43,7 +43,7 @@ func getOrdersFromQueue() ([]Order, error) {
 		orderQueueHostName = os.Getenv("ORDER_QUEUE_HOSTNAME")
 	}
 
-	console.log("Donna: " + 1);
+	fmt.Println("Donna: 1");
 
 
 	if orderQueueHostName != "" && useWorkloadIdentityAuth == "true" {
@@ -97,7 +97,7 @@ func getOrdersFromQueue() ([]Order, error) {
 			}
 		}
 	} else {
-		console.log("Donna: " + 2);
+		fmt.Println("Donna: 2");
 		// Get order queue connection string from environment variable
 		orderQueueUri := os.Getenv("ORDER_QUEUE_URI")
 		if orderQueueUri == "" {
@@ -105,7 +105,7 @@ func getOrdersFromQueue() ([]Order, error) {
 			return nil, errors.New("ORDER_QUEUE_URI is not set")
 		}
 
-		console.log("Donna: " + 3);
+		fmt.Println("Donna: 3");
 
 		// Get queue username from environment variable
 		orderQueueUsername := os.Getenv("ORDER_QUEUE_USERNAME")
@@ -121,7 +121,7 @@ func getOrdersFromQueue() ([]Order, error) {
 			return nil, errors.New("ORDER_QUEUE_PASSWORD is not set")
 		}
 
-		console.log("Donna: order_queue_password: " + orderQueuePassword);
+		fmt.Println("Donna: order_queue_password: " + orderQueuePassword);
 
 		// Connect to order queue
 		conn, err := amqp.Dial(ctx, orderQueueUri, &amqp.ConnOptions{
